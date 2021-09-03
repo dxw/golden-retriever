@@ -24,10 +24,10 @@ module GoldenRetriever
     end
 
     def successful_import
-      """
+      "
         Woof woof! :dog: :wave: I've imported #{@import_count} #{pluralize(@import_count, "opportunity")}
         this morning! Check #{pluralize(@import_count, "it", "them")} out here: #{search_url}
-      """
+      "
     end
 
     def no_imports
