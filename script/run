@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# script/run: Runs the import script
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+echo "==> Running the import script..."
+bundle exec rake opportunities:import
