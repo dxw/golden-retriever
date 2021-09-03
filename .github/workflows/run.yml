@@ -9,29 +9,20 @@ env:
 
 on:
   schedule:
-    - cron: '0 9 * * 1-5'
+    - cron: "0 9 * * 1-5"
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Set up Ruby 2.6
-      uses: actions/setup-ruby@v1
-      with:
-        ruby-version: 2.6.x
-    - name: Set up cache
-      uses: actions/cache@preview
-      with:
-        path: ./vendor/bundle
-        key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-gem-
-    - name: Install dependencies
-      run: |
-        gem install bundler
-        bundle install --jobs 4 --retry 3 --path ./vendor/bundle
-    - name: Fetch latest opportunities
-      run: bundle exec rake opportunities:import
+      - uses: actions/checkout@v1
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Install dependencies
+        run: |
+          gem install bundler
+          bundle install --jobs 4 --retry 3 --path ./vendor/bundle
+      - name: Fetch latest opportunities
+        run: bundle exec rake opportunities:import
