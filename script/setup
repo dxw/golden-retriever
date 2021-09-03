@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# script/setup: Set up the application for the first time after cloning, or set
+#               it back to the initial unused state.
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+echo "==> Bootstrapping..."
+script/bootstrap
+
+if [ ! -f .env ]; then
+  echo "==> Setting environment variables..."
+
+  envfile=""
+  variables=()
+
+  while IFS= read -r var
+  do
+    variables+=("$var")
+  done < <(grep -v '^ *#' < .env.example)
+
+  for var in "${variables[@]}"; do
+    echo "Enter a value for ${var/%=/}:"
+    read -r variable
+    printf -v envfile "%s%s%s\n" "$envfile" "$var" "$variable"
+  done
+
+  echo "$envfile" > .env
+fi

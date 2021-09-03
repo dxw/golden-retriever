@@ -1,0 +1,33 @@
+#!/bin/sh
+
+# script/bootstrap: Resolve all dependencies that the application requires to
+#                   run.
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+if [ -f .ruby-version ]; then
+  eval "$(rbenv init -)"
+
+  if [ -z "$(rbenv version-name 2>/dev/null)" ]; then
+    echo "==> Installing Ruby..."
+    rbenv install --skip-existing
+    rbenv rehash
+  fi
+fi
+
+if ! command -v bundle >/dev/null 2>&1; then
+  echo "==> Installing Bundler..."
+  gem install bundler
+
+  if [ -z "$CI" ]; then
+    rbenv rehash
+  fi
+fi
+
+if ! bundle check >/dev/null 2>&1; then
+  echo "==> Installing Ruby dependencies..."
+  bundle install
+fi
+
