@@ -45,4 +45,4 @@ To import the newest opportunities run the following:
 bundle exec rake opportunities:import
 ```
 
-You'll probably want to run this as a daily scheduled task. We use [Github Actions](https://github.com/dxw/golden-retriever/blob/master/.github/workflows/run.yml) for this
+You'll probably want to run this as a daily scheduled task. We use [Github Actions](https://github.com/dxw/golden-retriever/blob/master/.github/workflows/run.yml) for this.
