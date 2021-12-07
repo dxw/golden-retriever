@@ -26,3 +26,8 @@ jobs:
           bundle install --jobs 4 --retry 3 --path ./vendor/bundle
       - name: Fetch latest opportunities
         run: script/run
+      - uses: dxw/keepalive-workflow@c9ef16
+        with:
+          commit_message: Automated commit by Keepalive Workflow to keep the repository active [skip ci]
+          committer_username: dxw-rails-user
+          committer_email: rails@dxw.com
