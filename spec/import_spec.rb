@@ -35,14 +35,14 @@ RSpec.describe GoldenRetriever::Import, :vcr do
     end
 
     it "adds the deal" do
-      expect(GoldenRetriever::Deal).to receive(:create).with(
+      expect(GoldenRetriever::Deal).to receive(:create).with({
         name: opportunity.title,
         marketplace_id: opportunity.id,
         opportunity_link: opportunity.url,
         submission_deadline: opportunity.closing.to_datetime,
         expected_start_date: opportunity.expected_start_date.to_date,
         company_id: 1_711_706_921
-      )
+      })
 
       described_class.new.run!
     end
