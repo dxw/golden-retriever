@@ -42,7 +42,7 @@ RSpec.describe GoldenRetriever::ImportRunner do
         tries = 0
         allow(runner).to receive(:import) do
           tries += 1
-          tries == 1 ? raise(ArgumentError) : import
+          (tries == 1) ? raise(ArgumentError) : import
         end
         runner.run!
       end

@@ -40,7 +40,7 @@ module GoldenRetriever
 
     def pluralize(count, name, pluralized_version = nil)
       pluralized_version ||= name.pluralize
-      count == 1 ? name : pluralized_version
+      (count == 1) ? name : pluralized_version
     end
   end
 end
